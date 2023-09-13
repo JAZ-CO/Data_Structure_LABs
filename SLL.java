@@ -195,8 +195,10 @@ public class SLL<T> {
         SLLNode<T> temp = new SLLNode<>(e1);
         SLLNode<T> nextHead = head;
         SLLNode<T> prevHead = new SLLNode<>();
-
-        while (count <2){
+        if (this.isEmpty() || this.size() < 2 ) {
+            throw new IndexOutOfBoundsException();
+        }
+            while (count <2){
             if (nextHead.info.equals(e2)){
                 count++;
             }

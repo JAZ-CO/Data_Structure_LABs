@@ -93,16 +93,21 @@ public class test {
         System.out.println("Original Integer array: " + myList);
 
         // 1- insert before:
-        myList.insertBefore(4,20);
-        System.out.println("After inserting 20 before index 4: " + myList);
+        int a1 = 4;
+        int a2 = 20;
+        myList.insertBefore(a1,a2);
+        System.out.println("After inserting "+ a2 + " before index " +a1 +": "+ myList);
 
         // 2- delete:
-        System.out.println("Element deleted from index 4: " + myList.delete(4));
-        System.out.println("After deleting element from index 4: " + myList);
+        a1 = 4;
+        System.out.println("Element deleted from index " +a1+" : " + myList.delete(a1));
+        System.out.println("After deleting element from index "+a1 +": " + myList);
 
         // 3- Insert after two occurrences
-        myList.insertAfterSecondOccurrence(30,7);
-        System.out.println("After inserting 30 after the second occurence of 7: " + myList);
+        a1 = 30;
+        a2 = 7;
+        myList.insertAfterSecondOccurrence(a1,a2);
+        System.out.println("After inserting " + a1 + " after the second occurence of "+ a2 +": " + myList);
 
     }
 }
