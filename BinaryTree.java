@@ -10,7 +10,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public BinaryTree(BTNode root) {
-        root = null;
+        this.root = root;
     }
 
     public void purge(){
@@ -222,17 +222,24 @@ public class BinaryTree<T extends Comparable<T>> {
 
 
     public void printTree(){
+        if(root == null){
+            System.out.println("[ ]");
+            return;
+        }
         printTree(root, "", true);
     }
 
     // Print the binary tree
     protected void printTree(BTNode currPtr, String indent, boolean last) {
         if(indent.equals(""))
-            System.out.print("t");
+            System.out.print("Root");
         if (currPtr != null) {
             System.out.print(indent);
             if (last) {
-                System.out.print("R----");
+                if(indent.equals(""))
+                    System.out.print("--");
+                else
+                    System.out.print("R----");
                 indent += "   ";
             } else {
                 System.out.print("L----");
@@ -243,43 +250,4 @@ public class BinaryTree<T extends Comparable<T>> {
             printTree(currPtr.right, indent, true);
         }
     }
-
-    //******************************************************************************
-     public boolean subtreesHaveEqualNumberOfNodes(){
-        // throw exception if tree is empty
-        if (root == null)
-            throw new UnsupportedOperationException();
-        // test whether the number of nodes of the right part matches the left part of the root
-        return subtreesHaveEqualNumberOfNodes(root.left) == subtreesHaveEqualNumberOfNodes(root.right);
-     }
-     private int subtreesHaveEqualNumberOfNodes(BTNode<T> node){
-        // stop the recursion when it reaches the end
-        if (node == null)
-            return 0;
-        // add one and divide them to left and right node
-        return 1 + subtreesHaveEqualNumberOfNodes(node.left) + subtreesHaveEqualNumberOfNodes(node.right);
-     }
-    public int numOneChildNodes(){
-        // throw exception if tree is empty
-        if (root == null)
-            throw new UnsupportedOperationException();
-        return numOneChildNodes(root);
-    }
-    private int numOneChildNodes(BTNode<T> node){
-        // stop the recursion when it reaches the end, and add one
-        if (node == null)
-            return 1;
-        // if the node have two subtrees, continue the recursion without adding anything
-        if (node.right != null && root.left != null)
-            return numOneChildNodes(node.left) + numOneChildNodes(node.right);
-        // if the node has only left or right subtree, add one and continue from the available part
-        else if (node.right != null)
-            return 1 + numOneChildNodes(node.right);
-        else if (node.left != null) {
-            return 1+ numOneChildNodes(node.left);
-        }
-        // if both left and right subtree are null (not available), stop the recursion and add nothing
-        return 0;
-    }
-
 }

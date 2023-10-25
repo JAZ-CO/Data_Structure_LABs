@@ -3,15 +3,15 @@
  */
 import java.util.*;
 public class BST<T extends Comparable<T>> extends BinaryTree<T> {
-    protected BTNode<T> root = null;
+    protected BTNode<T> root;
     public BST() {
     }
 
     public BST(BTNode root) {
-        root = null;
+        this.root = root;
     }
 
-    public void clear() {
+    public void purge() {
         root = null;
     }
     public boolean isEmpty() {
@@ -21,7 +21,11 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         BTNode<T> p = root, prev = null;
         while (p != null) {  // find a place for inserting new node;
             prev = p;
-            if (el.compareTo(p.data) < 0)
+            int result = el.compareTo(p.data);
+
+            if(result == 0)
+                throw new IllegalArgumentException("Duplicate key.");
+            else if (result < 0)
                 p = p.left;
             else
                 p = p.right;
@@ -32,18 +36,6 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
             prev.left  = new BTNode<T>(el);
         else
             prev.right = new BTNode<T>(el);
-    }
-    public void recInsert(T el) {
-        root = recInsert(root,el);
-    }
-    protected BTNode<T> recInsert(BTNode<T> p, T el) {
-        if (p == null)
-            p = new BTNode<T>(el);
-        else if (el.compareTo(p.data) < 0)
-            p.left  = recInsert(p.left,el);
-        else
-            p.right = recInsert(p.right,el);
-        return p;
     }
 
     public boolean search(T el) {
@@ -135,7 +127,6 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
             throw new UnsupportedOperationException("the tree is empty");
     }
 
-
     public void inorderTraversal(){
         inorderTraversal(root);
     }
@@ -155,6 +146,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     public void levelOrderTraversalByLevels(){
         levelOrderTraversalByLevels(root);
     }
+
 
     public void iterativePreorder() {
         BTNode<T> p = root;
@@ -232,51 +224,10 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     public void printTree(){
+        if(root == null){
+            System.out.println("[ ]");
+            return;
+        }
         printTree(root, "", true);
     }
-
-    //==============================================================
-
-    public String getPathToLeafNode(T e){
-        // throw exception if tree is empty
-        if (root == null)
-            throw new UnsupportedOperationException();
-
-        return getPathToLeafNode(e,root);
-    }
-    private String getPathToLeafNode(T e, BTNode<T> node){
-        // when node is null, throw exception because the value does not exist
-        if (node == null)
-            throw new NoSuchElementException();
-        // if current data of the node is bigger than the argument, go to the left
-        if (node.data.compareTo(e) > 0)
-            return node.data + " " + getPathToLeafNode(e, node.left);
-            // if current data of the node is smaller than the argument,print data and go to the right
-        else if (node.data.compareTo(e) < 0)
-            return node.data + " " + getPathToLeafNode(e,node.right);
-        //else if it is equal, print the value and stop the method
-        else
-            return node.data + "";
-    }
-    int getNodeLevel(T  e){
-        // throw exception if tree is empty
-        if (root == null)
-            throw new UnsupportedOperationException();
-        return getNodeLevel(e,root);
-    }
-    private int getNodeLevel(T e, BTNode<T> node){
-        // when node is null, throw exception because the value does not exist
-        if (node == null)
-            throw new NoSuchElementException();
-        // if current data of the node is bigger than the argument, add one and go to the left
-        if (node.data.compareTo(e) > 0)
-            return 1 + getNodeLevel(e, node.left);
-        // if current data of the node is smaller than the argument, add one and go to the right
-        else if (node.data.compareTo(e) < 0)
-            return 1 + getNodeLevel(e,node.right);
-        //else if it is equal, stop counting the levels
-        else
-            return 0;
-    }
-
 }

@@ -1,4 +1,4 @@
-public class BTNode<T extends Comparable<T>> {  // Comparable<? super T>> {
+public class BTNode<T extends Comparable<T>> {
     protected T data;
     protected BTNode<T> left, right;
 
