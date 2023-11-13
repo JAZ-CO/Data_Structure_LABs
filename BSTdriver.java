@@ -6,7 +6,6 @@ public class BSTdriver {
         bst.root.right.left = new BSTNode<>(4);
         bst.root.left = new BSTNode<>(3);
         bst.root.left.left = new BSTNode<>(5);
-        System.out.println("Shallowest leaf = " + bst.shallowestLeaf());
-        System.out.println("Deepest leaf = " + bst.deepestLeaf());
+
     }
 }
