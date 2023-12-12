@@ -1,0 +1,7 @@
+addWord(String s): O(log n)
+findWord(String s): O(log n)
+removeWord(String s): O(log n)
+substring(int beginIndex): O(n)
+areWordsSimilar(String s1, String s2): O(n*m)
+findSimilar (String s): O(n*m)
+saveWords(String s): O(n)
